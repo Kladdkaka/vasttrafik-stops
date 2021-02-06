@@ -1,0 +1,26 @@
+name: 'Execute'
+on:
+  push:
+  schedule:
+    - cron: “1 0 * * *”
+
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Execute Script
+        env:
+          VT_KEY: ${{ secrets.VT_KEY }}
+          VT_SECRET: ${{ secrets.VT_SECRET }}
+        run: python run.py
+      - uses: mikeal/publish-to-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
