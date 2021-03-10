@@ -1,8 +1,8 @@
 name: 'Execute'
 on:
   push:
-  schedule:
-    - cron: "0 1 * * *"
+  #schedule:
+  #  - cron: "0 1 * * *"
 
 jobs:
   check-bats-version:
